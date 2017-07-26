@@ -4,5 +4,7 @@ Interact with other users in real time by placing colored pixels on a grid.  App
 
 #### Technologies Used:
 [Node/Express](https://expressjs.com/) - Server
+
 [Socket.io](https://socket.io/) - Library for implementing Websockets
-[jscolor](|http://jscolor.com/) - Javascript color picker
+
+[jscolor](http://jscolor.com/) - Javascript color picker
