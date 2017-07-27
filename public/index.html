@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Websocket Pixels</title>
+    <meta name="description" content="Interact with users in real time by placing colored pixels on a grid." />
+    <meta name="keywords" content="pixel canvas grid websockets game" />
+    <meta name="author" content="Nolan Miller" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:800" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+      <h1>Hello.</h1>
+      <div class="main">
+
+        <div class="grid-container">
+          <div class="color-row">
+            <div class="color">
+              Current Color: <input type="button" id="picker" class="jscolor color-picker" />
+            </div>
+
+            <div id="colorSelector" class="color-selector">
+              <?xml version="1.0" encoding="iso-8859-1"?>
+              <!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+              <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 59.997 59.997" style="enable-background:new 0 0 59.997 59.997;" xml:space="preserve">
+              <g>
+                <path d="M8.211,49.757c-0.391-0.391-1.023-0.391-1.414,0l-2.5,2.5c-0.856,0.855-1.328,1.995-1.328,3.207
+                  c0,1.211,0.472,2.351,1.328,3.207c0.884,0.884,2.045,1.326,3.206,1.326c1.162,0,2.323-0.442,3.208-1.326
+                  c1.768-1.77,1.768-4.646,0-6.414L8.211,49.757z M9.297,57.257c-0.988,0.988-2.598,0.988-3.586,0
+                  c-0.479-0.479-0.742-1.116-0.742-1.793c0-0.678,0.264-1.314,0.742-1.793l1.793-1.793l1.793,1.793
+                  C10.285,54.659,10.285,56.268,9.297,57.257z"/>
+                <path d="M55.163,10.402c2.243-2.245,2.497-5.845,0.578-8.196c-1.071-1.312-2.656-2.113-4.349-2.199
+                  c-1.691-0.081-3.354,0.55-4.549,1.743l-3.526,3.527c-1.119,1.119-3.069,1.119-4.187,0l-0.583-0.583
+                  c-0.863-0.864-2.271-0.861-3.134,0.001l-3.936,3.936c-0.864,0.864-0.864,2.271,0,3.136l1.968,1.968L18.182,28.999l-0.999,0.999
+                  c-1.562,1.562-2.727,3.501-3.395,5.688c-0.258,0.845-0.623,1.655-1.066,2.418c-0.028,0.048-0.048,0.099-0.076,0.146
+                  c-0.022,0.036-0.05,0.069-0.072,0.105c-0.224,0.363-0.462,0.718-0.724,1.055c-0.289,0.37-0.6,0.723-0.932,1.055l-4.413,4.413
+                  l5.656,5.656l4.375-4.374c1.354-1.353,3.037-2.355,4.87-2.898c1.541-0.458,2.986-1.202,4.269-2.165
+                  c0.06-0.045,0.127-0.081,0.186-0.127c0.442-0.344,0.864-0.715,1.26-1.111l10.86-10.859h0l5.366-5.365l1.967,1.967
+                  c0.418,0.419,0.975,0.65,1.566,0.65c0.001,0,0.001,0,0.002,0c0.592,0,1.148-0.23,1.567-0.649l3.936-3.936
+                  c0.419-0.419,0.649-0.976,0.649-1.567c0-0.593-0.23-1.149-0.649-1.568l-0.581-0.581c-0.56-0.56-0.867-1.303-0.867-2.094
+                  c0-0.791,0.308-1.534,0.867-2.093L55.163,10.402z M12.16,47.706l-2.828-2.828l2.999-2.999c1.561-1.562,2.726-3.501,3.394-5.688
+                  c0.55-1.797,1.543-3.45,2.872-4.779l0.413-0.413h14.142l-7.446,7.445c-0.338,0.338-0.697,0.654-1.074,0.947
+                  c-1.13,0.878-2.422,1.544-3.797,1.951c-0.704,0.209-1.379,0.496-2.038,0.816c-1.354,0.657-2.608,1.519-3.676,2.588L12.16,47.706z
+                   M35.152,28.999H21.01L34.86,15.149l7.071,7.071L35.152,28.999z M50.389,19.363l0.581,0.581c0.085,0.085,0.085,0.223,0,0.308
+                  l-3.936,3.936c-0.053,0.053-0.112,0.063-0.153,0.063s-0.101-0.011-0.153-0.063L44.76,22.22L34.86,12.32l-1.968-1.968
+                  c-0.085-0.085-0.085-0.223,0-0.308l3.936-3.936c0.042-0.042,0.098-0.063,0.153-0.063s0.111,0.021,0.153,0.063l0.582,0.582
+                  c0.937,0.937,2.182,1.453,3.507,1.453s2.571-0.516,3.508-1.453l3.526-3.527c0.794-0.794,1.888-1.22,3.034-1.159
+                  c1.146,0.058,2.175,0.578,2.9,1.467c1.278,1.565,1.083,3.989-0.443,5.517l-3.36,3.36c-0.938,0.937-1.453,2.182-1.453,3.507
+                  S49.451,18.427,50.389,19.363z"/>
+              </g>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <span id="users"></span><span> Active Users:</span>
+            <div id="userColors" class="user-colors-container"></div>
+          </div>
+
+          <svg class="grid" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                  <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5" />
+                  </pattern>
+                  <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+                      <rect width="80" height="80" fill="url(#smallGrid)" />
+                      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1" />
+                  </pattern>
+              </defs>
+
+              <rect width="100%" height="100%" fill="url(#smallGrid)" />
+          </svg>
+
+          <canvas id="canvas" width="500" height="500" class="canvas" oncontextmenu="return false"/>
+        </div>
+
+        <div class="sidebar" >
+          <div class="chat-container">
+            <div id="chat" class="chat">
+            </div>
+            <div class="message-box">
+              <form >
+                <input id="message" class="chat-input" maxlength="80" />
+                <button id="button" type=submit formaction='javascript:;'>
+                  Send
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="libs/jscolor.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
