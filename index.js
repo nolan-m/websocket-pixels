@@ -29,9 +29,9 @@ function findUser (id) {
 }
 
 function setupGrid () {
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0; i < 100; i++) {
     grid.push([]);
-    for (var j = 0; j < 50; j++) {
+    for (var j = 0; j < 100; j++) {
       grid[i][j] = '';
     }
   }
@@ -71,7 +71,7 @@ function onConnection(socket){
       user.color = data.color;
       user.name = data.name;
       io.emit('updateUserCount', users);
-      onMessageReceived({ user: null , message: user.name + ' has joined the room.' });
+      io.emit('message', { user: null , message: user.name + ' has joined the room.' });
     }
   }
 
@@ -95,11 +95,23 @@ function onConnection(socket){
     }
   }
 
+  function onUserNameChangeReceived (data) {
+    setUserName(socket.id, data);
+  }
+
+  function setUserName (id, name) {
+    var user = findUser(id);
+    if (user && user.name !== name) {
+      user.name = name;
+      io.emit('updateUserCount', users);
+    }
+  }
+
   function onUserDisconnect () {
     console.log('user left: ' + socket.id);
 
     var i = users.map(function (user) { return user.id;}).indexOf(socket.id);
-    onMessageReceived({user: null, message: users[i].name + ' has left the room.'});
+    io.emit('message', {user: null, message: users[i].name + ' has left the room.'});
     users.splice(i, 1);
 
     io.emit('updateUserCount', users);
@@ -109,7 +121,7 @@ function onConnection(socket){
   users.push(new User('', '', socket.id));
 
   // emit current state to newly joined user
-  io.emit('initUser', {
+  io.to(socket.id).emit('initUser', {
     users: users,
     grid: grid,
     messages: messages.slice(Math.max(messages.length - 5, 0))
@@ -117,6 +129,7 @@ function onConnection(socket){
 
   socket.on('message', onMessageReceived);
   socket.on('userJoin', onUserJoinReceived);
+  socket.on('userNameChange', onUserNameChangeReceived);
   socket.on('fillBlock', onBlockFillReceived);
   socket.on('disconnect', onUserDisconnect);
 }

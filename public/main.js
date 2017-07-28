@@ -31,6 +31,7 @@
       setupButtonHandler();
       setupCanvasClick();
       setupColorSelector();
+      setupUserNameButton();
 
       document.addEventListener("DOMContentLoaded", function(event) {
         setupColorPicker();
@@ -74,17 +75,18 @@
       };
     }
 
-    function setupUser () {
-      function promptName () {
-        var name = window.prompt('Enter your name:');
-        if (name.trim() === '' || name.length > 32) {
-          promptName();
-          return;
-        }
-        state.user.name = name;
-        localStorage.setItem('user', JSON.stringify(state.user));
+    function promptName () {
+      var name = window.prompt('Enter your name:');
+      if (!name || name.trim() === '' || name.length > 32) {
+        return promptName();
       }
+      state.user.name = name;
+      localStorage.setItem('user', JSON.stringify(state.user));
 
+      return name;
+    }
+
+    function setupUser () {
       var user = localStorage.getItem('user');
 
       if (user) {
@@ -95,6 +97,11 @@
       } else {
         promptName();
       }
+    }
+
+    function setupUserNameButton () {
+      var userNameBtn = document.getElementById('userNameBtn');
+      userNameBtn.addEventListener('click', handleChangeUserName, false);
     }
 
     /* ========= DOM HANDLERS ========= */
@@ -108,9 +115,9 @@
       toggleDropper();
     }
 
-    function handleCanvasClick(event) {
-      var x = event.x;
-      var y = event.y;
+    function handleCanvasClick(e) {
+      var x = event.pageX;
+      var y = event.pageY;
 
       var canvas = document.getElementById("canvas");
       var ctx = canvas.getContext('2d');
@@ -135,6 +142,14 @@
       }
     }
 
+    function handleChangeUserName () {
+      var name = promptName();
+      console.log(name);
+      if (name) {
+        socket.emit('userNameChange', name);
+      }
+    }
+
     /* ========= SOCKET HANDLERS ========= */
 
     function handleSocketMessage (data) {
@@ -146,9 +161,9 @@
       var canvas = document.getElementById('canvas');
       if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < 50; i++) {
-          for (var j = 0; j < 50; j++) {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < 100; i++) {
+          for (var j = 0; j < 100; j++) {
             ctx.fillStyle = grid[j][i] != '' ? grid[j][i] : '#FFFFFF';
             ctx.fillRect(i * 10, j * 10, WIDTH, HEIGHT);
           }

@@ -15,10 +15,26 @@
     <![endif]-->
   </head>
   <body>
-      <h1>Hello.</h1>
       <div class="main">
 
         <div class="grid-container">
+          <svg class="grid" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                  <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5" />
+                  </pattern>
+                  <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+                      <rect width="80" height="80" fill="url(#smallGrid)" />
+                      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1" />
+                  </pattern>
+              </defs>
+
+              <rect width="100%" height="100%" fill="url(#smallGrid)" />
+          </svg>
+
+          <canvas id="canvas" width="1000" height="1000" class="canvas" oncontextmenu="return false"/>
+        </div>
+        <div class="sidebar" >
           <div class="color-row">
             <div class="color">
               Current Color: <input type="button" id="picker" class="jscolor color-picker" />
@@ -57,30 +73,15 @@
               </g>
               </svg>
             </div>
+
+            <div>
+              <button id="userNameBtn">Change User Name</button>
+            </div>
           </div>
           <div>
             <span id="users"></span><span> Active Users:</span>
             <div id="userColors" class="user-colors-container"></div>
           </div>
-
-          <svg class="grid" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                  <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
-                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5" />
-                  </pattern>
-                  <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-                      <rect width="80" height="80" fill="url(#smallGrid)" />
-                      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1" />
-                  </pattern>
-              </defs>
-
-              <rect width="100%" height="100%" fill="url(#smallGrid)" />
-          </svg>
-
-          <canvas id="canvas" width="500" height="500" class="canvas" oncontextmenu="return false"/>
-        </div>
-
-        <div class="sidebar" >
           <div class="chat-container">
             <div id="chat" class="chat">
             </div>
@@ -94,6 +95,8 @@
             </div>
           </div>
         </div>
+
+
       </div>
 
     <script src="/socket.io/socket.io.js"></script>
